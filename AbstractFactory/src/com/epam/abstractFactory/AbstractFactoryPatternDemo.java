@@ -1,6 +1,7 @@
 package com.epam.abstractFactory;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -39,21 +40,10 @@ public class AbstractFactoryPatternDemo {
 
 	private static Properties getProperties() {
 		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-			input = new FileInputStream("config.properties");
+		try (InputStream input = new FileInputStream("config.properties")) {
 			prop.load(input);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return prop;
 	}
