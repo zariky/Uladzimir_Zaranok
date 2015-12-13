@@ -1,5 +1,6 @@
 package com.epam.abstractFactory;
 
-public class AbstractFactory {
-
+public abstract class AbstractFactory {
+	abstract Person getPersonFactory(String personType);
+	abstract IDataManager getDataManagerFactory(String dataType);
 }
