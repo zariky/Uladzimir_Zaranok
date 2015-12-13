@@ -1,4 +1,4 @@
-package com.epam.abstractFactory;
+package com.epam.abstractFactory.beans;
 
 public class Student extends Person {
 	
@@ -13,9 +13,8 @@ public class Student extends Person {
 	}
 	
 	@Override
-	public String sayGreeting() {
+	public void sayGreeting() {
 		System.out.println("Hi I'm Student");
-		return "Hi I'm Student";
 	}
 	
 }

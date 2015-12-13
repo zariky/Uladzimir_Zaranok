@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import com.epam.abstractFactory.beans.Person;
+import com.epam.abstractFactory.factories.AbstractFactory;
+import com.epam.abstractFactory.factories.FactoryProducer;
+import com.epam.abstractFactory.interfaces.IDataManager;
+
 public class AbstractFactoryPatternDemo {
 
 	public static void main(String[] args) {
@@ -15,14 +20,14 @@ public class AbstractFactoryPatternDemo {
 		
 		IDataManager dataManager = dataManagerFactory.getDataManagerFactory(props.getProperty("dataManagerFactory"));
 		
-		Person person1 = personFactory.getPersonFactory(props.getProperty("personType"));
-		person1.setName(props.getProperty("personName"));
-		person1.setAddress(props.getProperty("personAddress"));
-		person1.setFaculty(props.getProperty("personFaculty"));
-		person1.setSalary(Integer.parseInt(props.getProperty("personSalary")));
+		Person person = personFactory.getPersonFactory(props.getProperty("personType"));
+		person.setName(props.getProperty("personName"));
+		person.setAddress(props.getProperty("personAddress"));
+		person.setFaculty(props.getProperty("personFaculty"));
+		person.setSalary(Integer.parseInt(props.getProperty("personSalary")));
 		
-		dataManager.writePerson(person1);
-		System.out.println("Person = " + person1.getClass().getSimpleName() + " successfully writed to " + props.getProperty("dataManagerFactory"));
+		dataManager.writePerson(person);
+		System.out.println("Person = " + person.getClass().getSimpleName() + " successfully writed to " + props.getProperty("dataManagerFactory"));
 		
 		Person readedPerson = dataManager.readPerson(props.getProperty("nameForSearch"));
 		if (readedPerson != null) {

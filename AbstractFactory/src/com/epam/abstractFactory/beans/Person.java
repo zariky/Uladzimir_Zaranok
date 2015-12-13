@@ -1,4 +1,4 @@
-package com.epam.abstractFactory;
+package com.epam.abstractFactory.beans;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ public abstract class Person implements Serializable {
 	private String faculty;
 	private int salary;
 
-	public abstract String sayGreeting();
+	public abstract void sayGreeting();
 
 	public Person() {
 		

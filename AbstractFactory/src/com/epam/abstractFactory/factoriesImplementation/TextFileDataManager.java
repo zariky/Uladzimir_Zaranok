@@ -1,10 +1,13 @@
-package com.epam.abstractFactory;
+package com.epam.abstractFactory.factoriesImplementation;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import com.epam.abstractFactory.beans.Person;
+import com.epam.abstractFactory.interfaces.IDataManager;
 
 public class TextFileDataManager implements IDataManager {
 

@@ -1,4 +1,5 @@
-package com.epam.abstractFactory;
+package com.epam.abstractFactory.factories;
+
 
 public class FactoryProducer {
 	

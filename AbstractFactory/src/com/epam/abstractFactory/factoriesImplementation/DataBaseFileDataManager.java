@@ -1,15 +1,19 @@
-package com.epam.abstractFactory;
+package com.epam.abstractFactory.factoriesImplementation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataBasetFileDataManager implements IDataManager {
+import com.epam.abstractFactory.beans.Person;
+import com.epam.abstractFactory.factories.AbstractFactory;
+import com.epam.abstractFactory.factories.FactoryProducer;
+import com.epam.abstractFactory.interfaces.IDataManager;
+
+public class DataBaseFileDataManager implements IDataManager {
 
 	private static final String WRITE_OBJECT_SQL = "INSERT INTO person(name, address, faculty, salary, type) VALUES (?, ?, ?, ?, ?)";
 	private static final String READ_PERSON_BY_NAME_SQL = "SELECT * FROM person WHERE name = ?";
@@ -17,9 +21,7 @@ public class DataBasetFileDataManager implements IDataManager {
 	
 	@Override
 	public void writePerson(Person person) {
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = getConnection().prepareStatement(WRITE_OBJECT_SQL);
+		try (PreparedStatement pstmt = getConnection().prepareStatement(WRITE_OBJECT_SQL);) {
 			pstmt.setString(1, person.getName());
 			pstmt.setString(2, person.getAddress());
 			pstmt.setString(3, person.getFaculty());
@@ -28,24 +30,14 @@ public class DataBasetFileDataManager implements IDataManager {
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (pstmt != null) { 
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 
 	@Override
 	public Person readPerson() {
-		Statement stmt = null;
 		Person person = null;
 		AbstractFactory personFactory = FactoryProducer.getFactory("person");
-		try {
-			stmt = getConnection().createStatement();
+		try (Statement stmt = getConnection().createStatement()) {
 			ResultSet rs = stmt.executeQuery(READ_PERSON_SQL);
 			while (rs.next()) {
 				String name = rs.getString(1);
@@ -61,26 +53,16 @@ public class DataBasetFileDataManager implements IDataManager {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 		return person;
 	}
 
 	@Override
 	public Person readPerson(String persoName) {
-		PreparedStatement pstmt = null;
 		Person person = null;
 		List<Person> personsList = new ArrayList<Person>();
 		AbstractFactory personFactory = FactoryProducer.getFactory("person");
-		try {
-			pstmt = getConnection().prepareStatement(READ_PERSON_BY_NAME_SQL);
+		try (PreparedStatement pstmt = getConnection().prepareStatement(READ_PERSON_BY_NAME_SQL)) {
 			pstmt.setString(1, persoName);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -98,14 +80,6 @@ public class DataBasetFileDataManager implements IDataManager {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 		return personsList.size() > 0 ? personsList.get(0) : null;
 	}
