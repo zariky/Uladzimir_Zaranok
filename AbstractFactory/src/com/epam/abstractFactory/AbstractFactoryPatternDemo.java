@@ -22,19 +22,13 @@ public class AbstractFactoryPatternDemo {
 		person1.setSalary(Integer.parseInt(props.getProperty("personSalary")));
 		
 		dataManager.writePerson(person1);
-		Person readedPerson = dataManager.readPerson();
+		Person readedPerson = dataManager.readPerson(props.getProperty("nameForSearch"));
 		if (readedPerson != null) {
-			System.out.println(readedPerson.toString() + readedPerson.getClass().getSimpleName());
+			System.out.println(readedPerson.toString() + readedPerson.getClass().getSimpleName() + " from " + props.getProperty("dataManagerFactory"));
 		} else {
-			System.out.println("Person doesn't found!");
+			System.out.println("Person doesn't found" + " in " + props.getProperty("dataManagerFactory"));
 		}
 		
-		
-		/*Person person2 = personFactory.getPersonFactory("teacher");
-		person2.setName("Tim");
-		dataManager.writePerson(person1);
-		dataManager.writePerson(person2);
-		dataManager.readPerson("dfg");*/
 	}
 
 	private static Properties getProperties() {

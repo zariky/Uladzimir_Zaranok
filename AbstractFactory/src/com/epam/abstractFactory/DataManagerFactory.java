@@ -11,7 +11,7 @@ public class DataManagerFactory extends AbstractFactory {
 	IDataManager getDataManagerFactory(String dataType) {
 		if (dataType.equalsIgnoreCase("txt")) {
 			return new TextFileDataManager();
-		} else if (dataType.equalsIgnoreCase("DB")) {
+		} else if (dataType.equalsIgnoreCase("db")) {
 			return new DataBasetFileDataManager();
 		} else {
 			return null;
