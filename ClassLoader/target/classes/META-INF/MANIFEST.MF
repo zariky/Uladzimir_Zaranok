@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Built-By: Admin
+Build-Jdk: 1.7.0_45
+Class-Path: log4j-1.2.17.jar
+Main-Class: com.epam.classloader.runner.RunnerLoader
+Created-By: Maven Integration for Eclipse
+
