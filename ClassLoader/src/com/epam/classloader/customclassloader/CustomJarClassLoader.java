@@ -23,19 +23,17 @@ public class CustomJarClassLoader extends ClassLoader {
 		resultClass = (Class<?>) classes.get(name);
 		if (resultClass != null) {
 			return resultClass;
+		}
+		resultClass = getClassFromJar(name);
+		if (resultClass != null) {
+			classes.put(name, resultClass);
 		} else {
-			resultClass = getClassFromJar(name);
-			if (resultClass != null) {
-				classes.put(name, resultClass);
-			} else {
-				throw new ClassNotFoundException("Not found " + name);
-			}
+			throw new ClassNotFoundException("Not found " + name);
 		}
 		return resultClass;
 	}
 	
 	private Class<?> getClassFromJar(String className) {
-		byte classByte[];
 		Class<?> result = null;
 		for (String jarFile : jarFiles) {
 			try (JarFile jar = new JarFile(jarFile)) {
@@ -49,7 +47,7 @@ public class CustomJarClassLoader extends ClassLoader {
 					nextValue = is.read();
 				}
 
-				classByte = byteStream.toByteArray();
+				byte classByte[] = byteStream.toByteArray();
 				result = defineClass(className, classByte, 0, classByte.length,	null);
 				return result;
 			} catch (Exception e) {
