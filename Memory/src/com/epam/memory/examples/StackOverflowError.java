@@ -24,5 +24,6 @@ public class StackOverflowError {
 	public static void main(String[] args) {
 		new StackOverflowError().start();
 	}
+	
 
 }

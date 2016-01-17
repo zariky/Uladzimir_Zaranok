@@ -10,4 +10,5 @@ public class PermGenError {
 			Class c = cp.makeClass("com.epam.demo.ClassLoad" + i).toClass();
 		}
 	}
+	
 }
