@@ -1,29 +1,26 @@
 package com.epam.memory.examples;
 
 public class StackOverflowError {
-	class L1 {
-		L2 l;
-
-		L1() {
-			l = new L2();
+	class Leak1 {
+		Leak2 l;
+		Leak1() {
+			l = new Leak2();
 		}
 	}
 
-	class L2 {
-		L1 l;
-
-		L2() {
-			l = new L1();
+	class Leak2 {
+		Leak1 l;
+		Leak2() {
+			l = new Leak1();
 		}
 	}
 
 	public void start() {
-		L1 l = new L1();
+		Leak1 l = new Leak1();
 	}
 
 	public static void main(String[] args) {
 		new StackOverflowError().start();
 	}
 	
-
 }
