@@ -16,6 +16,9 @@ public class UtilTest {
 	public void testConcatenate() {
 		String result = Utils.concatenate("one", "two");
 		assertEquals("onetwo", result);
+		assertNotNull(Utils.concatenate(null, "two"));
+		assertNotNull(Utils.concatenate("one", null));
+		assertEquals("nullnull", Utils.concatenate(null, null));
 	}
 
 	@Test
@@ -29,6 +32,7 @@ public class UtilTest {
 		Random random = new Random();
 		int randFact = Math.abs(random.nextInt(10000) + 1);
 		BigInteger result = Utils.CalculateFactorial(randFact);
+		assertNotNull(result);
 		System.out.println(result.toString());
 	}
 	
@@ -40,6 +44,6 @@ public class UtilTest {
 	@Ignore
 	@Test
 	public void testNormalizeWord() {
-		
+		fail("Ignored test");
 	}
 }
