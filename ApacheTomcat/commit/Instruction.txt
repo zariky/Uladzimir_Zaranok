@@ -1,0 +1,5 @@
+1. Install Apache and Tomcat
+2. Create on Disk c:\StaticContent\ - folder and copy at this location css folder with style.css from deployed war module.
+Final path should be: c:\StaticContent\css\style.css
+3. Deploy war into <Tomcat>\webapps\ folder
+4. Type in browser: http://localhost/simple-webapp/apacheTomcat.jsp
